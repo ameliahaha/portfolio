@@ -1,45 +1,160 @@
 body{
     margin: 0px;
-    display: flex;
-}
-
-#main-container{
-    width: 1024px;
-    height: 100%;
-    margin: 0px auto;
-    background-color: #fff;
-    display: flex;
-}
-
-.header{
-    width: 100%;
-    height: 109px;
-    background-color: #ffcea1;
-    font-size: 43px;
-    display: flex;
-}
-
-.header-text{
-    display: inline-flex;
-    flex-direction: row;
-    justify-items: space-between;
-}
-
-body{
     background-color: #eaaf83;
 }
 
+/* #main-container{
+    width: 100%;
+    height: 100%;
+    margin: 0px auto;
+    background-color: #fff;
+} */
+
+.header{
+    width: 100%;
+    height: 100px;
+    background-color: #ffcea1;
+    font-size: 43px;
+    display: flex;
+    justify-content: center;
+    transform: scaleX(1.2);
+    gap: 100px;
+}
+
+.header-text{
+    font-family: "quasimoda-2", sans-serif;
+    padding: 100 100 100;
+    background-color: #ffff;;
+    font-weight: 700;
+    font-style: normal;
+    font-stretch: 150%;
+    color: white;
+    flex-direction: row;
+    border: 2px solid transparent;      
+    padding: 8px 25px;             
+    margin: 5px;                   
+    display: inline-block;         
+    border-radius: 8px;            
+    background-color: #ffbe88;     
+}
+  
+.logo-container{
+    /* border: 1px solid #000; */
+    display: flex;
+    scale: 130%;
+    margin-left: 275px;
+    margin-top: 100px;
+}
+
+.intro-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 40px;
+}
+
+#welcome {
+    font-family: "lindsey-signature", sans-serif;
+    color: #fff;
+    font-size: 70px;
+    margin-top: -450px;
+    margin-left: 550px;
+    text-align: center;
+    transform: scaleX(1.3);
+}
+
+.dotted-line{
+    border: none;
+    border-bottom: dotted 5px #fff;
+    width: 500px;
+    margin-left: 975px;
+    margin-top: -45px;
+}
+
+.subtext {
+    float: right;
+    text-align: center;
+    padding: 20px;
+    border: none;
+    color: #fff;
+    font-family: quasimoda, sans-serif;
+    font-style: italic;
+    font-size: 25px;
+    margin-right: 420px;
+    margin-top: -50px;
+}
+#more{
+    margin-top: -40px;
+    margin-left: 40px;
+}
+
+#arrow-scroll {
+    margin-top: -35px;
+    width: 50px;
+    margin-left: 1300px;
+    scale: 150%;
+}
+
+.strip{
+    /* border: black solid 1px; */
+    height: 150px;
+    width: 100%;
+    margin-top: 90px;
+    background-color: #ffcea1;
+}
+
+.about{
+    margin: 100px 30px 0 0;
+}
+
+#title-about{
+    font-family: lindsey-signature, sans-serif;
+    font-style: normal;
+    font-size: 60px;
+    transform: scaleX(1.5);
+    color: white;
+    margin-left: 500px;
+}
+
+.about-text{
+    position: relative;
+    width: 700px;
+    margin-left: 150px;
+    margin-top: -70px;
+    font-family: quasimoda, sans-serif;
+    font-weight: 300;
+    font-style: italic;
+    font-size: 30px;
+    color: white;
+    z-index: 2;
+}
+
+.triangle{
+    position: relative;
+    display: inline-block;
+    background-color: #fff;
+    border: 500px solid #0000;
+    border-top-color: #eaaf83;
+    border-right-color: #eaaf83;
+    border-bottom-color: #eaaf83;
+    border-left-color: #ffcea1;
+
+    margin-top: -400px;
+    z-index: 1;
+}
+
+
 /* css to make link not underlined */
-a:link { 
-    text-decoration: none; 
-  } 
-  a:visited { 
-    text-decoration: none; 
-  } 
-  a:hover { 
-    text-decoration: none; 
-  } 
-  a:active { 
-    text-decoration: none; 
-  }
+    a:link { 
+          text-decoration: none; 
+      } 
+      a:visited { 
+          text-decoration: none; 
+      } 
+      a:hover { 
+          text-decoration: none; 
+      } 
+      a:active { 
+          text-decoration: none; 
+      }
   /* css to make link not underlined */
