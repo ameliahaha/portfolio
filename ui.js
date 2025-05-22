@@ -1,6 +1,15 @@
+const line = document.querySelector(".timeline-innerline");
+
+let i = 0;
+let i2 = 1;
+let target1 = document.querySelector(".timeline");
+let target2 = document.querySelectorAll(".timeline ul li");
+
+const timeline_events = document.querySelectorAll("ul li");
+
 function showTime(e) {
   e.setAttribute("done", "true");
-  e.querySelector(".timeline-point").style.background = "#ffe4c2";
+  e.querySelector(".timeline-point").style.background = "#fac089";
   e.querySelector(".date").style.opacity = "100%";
   e.querySelector("p").style.opacity = "100%";
   e.querySelector("p").style.transform = "translateY(0px)";
@@ -14,55 +23,87 @@ function hideTime(e) {
   e.querySelector("p").style.transform = "translateY(-10px)";
 }
 
-function slowLoop(events, lineElem, isHorizontal, onComplete) {
-  let index = 0;
+function slowLoop() {
+  setTimeout(function () {
+    showTime(timeline_events[i]);
+    timelineProgress(i + 1);
+    i++;
+    if (i < timeline_events.length) {
+      slowLoop();
+    }
+  }, 800);
+}
 
-  // Reset and flush layout
-  lineElem.style.transition = "none";
-  lineElem.style.width = isHorizontal ? "0%" : "4px";
-  lineElem.style.height = isHorizontal ? "4px" : "0%";
 
-  // Use two animation frames to trigger proper transition
-  requestAnimationFrame(() => {
-    requestAnimationFrame(() => {
-      lineElem.style.transition = isHorizontal ? "width 1s linear" : "height 1s linear";
+function timelineProgress(value) {
+  let progress = `${(value / timeline_events.length) * 100}%`;
+  if (window.matchMedia("(min-width: 728px)").matches) {
+    line.style.width = progress;
+    line.style.height = "4px";
+  } else {
+    line.style.height = progress;
+    line.style.width = "4px";
+  }
+}
 
-      function loop() {
-        setTimeout(() => {
-          showTime(events[index]);
-          const progress = `${((index + 1) / events.length) * 100}%`;
-          if (isHorizontal) {
-            lineElem.style.width = progress;
-          } else {
-            lineElem.style.height = progress;
-          }
-
-          index++;
-          if (index < events.length) {
-            loop();
-          } else if (onComplete) {
-            onComplete();
-          }
-        }, 800);
+let observer = new IntersectionObserver(
+  (entries) => {
+    entries.forEach((entry) => {
+      if (entry.isIntersecting) {
+        if (window.matchMedia("(min-width: 728px)").matches) {
+          slowLoop();
+        } else {
+          showTime(entry.target);
+          timelineProgress(i2);
+          i2++;
+        }
+        observer.unobserve(entry.target);
       }
-
-      loop();
     });
+  },
+  { threshold: 0.3, rootMargin: "0px 0px -50px 0px" }
+);
+
+if (window.matchMedia("(min-width: 728px)").matches) {
+  observer.observe(target1);
+} else {
+  target2.forEach((t) => {
+    observer.observe(t);
   });
 }
 
-window.addEventListener("DOMContentLoaded", () => {
-  const timeline1Events = document.querySelectorAll(".timeline:nth-of-type(1) ul li");
-  const line1 = document.querySelector(".timeline:nth-of-type(1) .timeline-innerline");
 
-  const timeline2Events = document.querySelectorAll(".timeline:nth-of-type(2) ul li");
-  const line2 = document.querySelector(".timeline:nth-of-type(2) .timeline-innerline");
+timeline_events.forEach((li, index) => {
+  li.addEventListener("click", () => {
+    if (li.getAttribute("done")) {
+      timelineProgress(index);
 
-  const isHorizontal = window.matchMedia("(min-width: 728px)").matches;
-
-  slowLoop(timeline1Events, line1, isHorizontal, () => {
-    setTimeout(() => {
-      slowLoop(timeline2Events, line2, isHorizontal);
-    }, 200); // small delay to ensure second line is visible
+      // hide all timeline events from last upto the point clicked
+      timeline_events.forEach((ev, idx) => {
+        if (idx >= index) {
+          hideTime(ev);
+        }
+      });
+    } else {
+      timelineProgress(index + 1);
+      // show all timeline events from first upto the point clicked
+      timeline_events.forEach((ev, idx) => {
+        if (idx <= index) {
+          showTime(ev);
+        }
+      });
+    }
   });
 });
+
+var doit;
+window.addEventListener("resize", () => {
+  clearTimeout(doit);
+  doit = setTimeout(resizeEnd, 1200);
+});
+
+function resizeEnd() {
+  i = 0;
+  slowLoop();
+}
+
